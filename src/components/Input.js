@@ -18,17 +18,19 @@ const Input = () => {
   };
 
   return (
-    <div>
+    <div className="inp__app">
       <form onSubmit={handleSubmit}>
-        <input className="cls__input" type="text" name="task" />
-        <button className="cls__button" type="submit">Add Task</button>
+        <input className="inp__input" type="text" name="task" />
+        <button className="inp__button" type="submit">Add Task</button>
       </form>
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>
-            {task}
-            <button onClick={() => handleDelete(index)}>Delete</button>
-          </li>
+          <div className="inp__task" key={index}>
+            <li className="inp__li">
+              {task}
+            </li>
+            <button className="inp__delete" onClick={() => handleDelete(index)}>X</button>
+          </div>
         ))}
       </ul>
     </div>

@@ -1,12 +1,16 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
     background-color: blanchedalmond;
   }
+
+.inp__app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
   
-.cls__input {
+.inp__input {
     border: none;
     border-radius: 10px 0 0 10px;
     padding: 10px;
@@ -15,11 +19,11 @@ body {
     outline: none;
 }
 
-input:focus {
+.inp__input:focus {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.cls__button {
+.inp__button {
     display: inline-block;
     background-color: #2196F3;
     color: #fff;
@@ -31,9 +35,51 @@ input:focus {
     transition: all 0.3s ease;
   }
   
-  button:hover {
-    background-color: #0D47A1;
+.inp__button:hover {
+background-color: #0D47A1;
+}
+
+ul {
+    list-style-type: none;
+    padding-right: 2.5rem;
+}
+
+.inp__task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: #c3e6cb;
+    border-color: #28a745;
+    width: 20rem;
+    overflow-wrap: anywhere;
+}
+
+.inp__li {
+    flex-grow: 1;
+    padding: 10px;
   }
+
+
+.inp__delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow-wrap: initial;
+  }
+  
+.inp__delete:hover {
+background-color: #c82333;
+}
+  
 
 
 @media only screen and (max-width: 600px) {
