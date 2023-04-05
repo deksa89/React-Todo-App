@@ -9,7 +9,11 @@ body {
     justify-content: center;
     align-items: center;
 }
-  
+
+form {
+    margin-bottom: 20px;
+}
+
 .inp__input {
     border: none;
     border-radius: 10px 0 0 10px;
@@ -23,6 +27,14 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.inp__select {
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
 .inp__button {
     display: inline-block;
     background-color: #2196F3;
@@ -33,10 +45,11 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   }
   
 .inp__button:hover {
-background-color: #0D47A1;
+    background-color: #0D47A1;
 }
 
 ul {
@@ -51,6 +64,7 @@ ul {
     align-items: center;
     padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 5px;
     margin-bottom: 10px;
     background-color: #c3e6cb;
     border-color: #28a745;
