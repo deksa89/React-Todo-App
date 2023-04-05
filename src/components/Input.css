@@ -6,8 +6,8 @@ body {
 .inp__app {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 form {
@@ -55,6 +55,12 @@ form {
 ul {
     list-style-type: none;
     padding-right: 2.5rem;
+}
+
+.inp__group-tasks{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
 }
 
 .inp__task {

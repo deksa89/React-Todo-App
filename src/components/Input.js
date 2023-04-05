@@ -36,7 +36,7 @@ const Input = () => {
         </select>
         <button className="inp__button" type="submit">Add Task</button>
       </form>
-      <div className="inp__tasks">
+      <div className="inp__group-tasks">
         <div className="inp__job-tasks">
           <h2>Job Tasks</h2>
           <ul>
