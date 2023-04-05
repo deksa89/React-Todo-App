@@ -5,25 +5,9 @@ import './Input.css';
 const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
-  const [colors, setColors] = useState({});
-  const [symbols, setSymbols] = useState({});
+  const [currentSymbol, setCurrentSymbol] = useState("X")
+  const [color, setColor] = useState("#ff0000");
 
-
-  const handleColorChange = (index) => {
-    const newColors = { ...colors };
-    console.log("newColors: ", newColors)
-    console.log("index1: ", index)
-    newColors[index] = newColors[index] === "#ff0000" ? "#00ff00" : "#ff0000";
-    setColors(newColors);
-  };
-
-  const handleSymbolChange = (index) => {
-    const newSymbols = { ...symbols };
-    console.log("newSymbols: ", newSymbols)
-    console.log("index2: ", index)
-    newSymbols[index] = newSymbols[index] === "X" ? "O" : "X";
-    setSymbols(newSymbols);
-  };
 
 
   const handleSubmit = (event) => {
@@ -32,35 +16,29 @@ const Input = () => {
     const taskType = event.target.elements.type.value;
     if (taskType === "job") {
       setJobTasks([...jobTasks, newTask]);
-      setColors({ ...colors, [jobTasks.length]: "#ff0000" });
-      setSymbols({ ...symbols, [jobTasks.length]: "X" });
     } else {
       setPrivateTasks([...privateTasks, newTask]);
-      setColors({ ...colors, [privateTasks.length]: "#ff0000" });
-      setSymbols({ ...symbols, [privateTasks.length]: "X" });
     }
     event.target.reset();
   };
 
   const handleDelete = (index, taskType) => {
     if (taskType === "job") {
-      const newColors = { ...colors };
-      const newSymbols = { ...symbols };
-      delete newColors[index];
-      delete newSymbols[index];
-      setColors(newColors);
-      setSymbols(newSymbols);
       setJobTasks(jobTasks.filter((task, i) => i !== index));
     } else {
-      const newColors = { ...colors };
-      const newSymbols = { ...symbols };
-      delete newColors[index];
-      delete newSymbols[index];
-      setColors(newColors);
-      setSymbols(newSymbols);
       setPrivateTasks(privateTasks.filter((task, i) => i !== index));
     }
   };
+
+  const handleSolved = () => {
+    if (currentSymbol === "X") {
+      setCurrentSymbol("✓");
+      setColor("#00ff00");
+    } else {
+      setCurrentSymbol("X");
+      setColor("#ff0000");
+    }
+  }
 
   return (
     <div className="inp__app">
@@ -81,10 +59,7 @@ const Input = () => {
                 <li className="inp__li">
                   {task}
                 </li>
-                <button className="inp__solved" onClick={() => {
-                  handleColorChange(index);
-                  handleSymbolChange(index);
-                }} style={{ backgroundColor: colors[index] }}>{symbols[index]}</button>
+                <button className="inp__solved" onClick={handleSolved} style={{backgroundColor: color}}>{currentSymbol}</button>
                 <button className="inp__delete" onClick={() => handleDelete(index, "job")}>Delete</button>
               </div>
             ))}
@@ -98,10 +73,7 @@ const Input = () => {
                 <li className="inp__li">
                   {task}
                 </li>
-                <button className="inp__solved" onClick={() => {
-                  handleColorChange(index);
-                  handleSymbolChange(index);
-                }} style={{ backgroundColor: colors[index] }}>{symbols[index]}</button>
+                <button className="inp__solved" onClick={handleSolved}>{currentSymbol}</button>
                 <button className="inp__delete" onClick={() => handleDelete(index, "private")}>Delete</button>
               </div>
             ))}
