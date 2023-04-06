@@ -25,13 +25,24 @@ form {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.inp__select {
+.inp__select-type {
     border: none;
     padding: 10px;
     font-size: 16px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     outline: none;
 }
+
+.inp__select-task {
+    width: 5.5rem;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
 
 .inp__button {
     display: inline-block;
@@ -86,7 +97,7 @@ ul {
     margin-bottom: 10px;
     background-color: #c3e6cb;
     border-color: #28a745;
-    width: 20rem;
+    width: 30rem;
     overflow-wrap: anywhere;
 }
 
