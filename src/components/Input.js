@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Draggable from 'react-draggable';
 
 import './Input.css';
 
@@ -57,18 +58,20 @@ const Input = () => {
           <h2>Job Tasks</h2>
           <ul>
             {jobTasks.map((task, index) => (
-              <div className="inp__task" key={index}>
-                <li className="inp__li">
-                  {task.task}
-                </li>
-                <select className="inp__select-task">
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
-                </select>
-                <button className="inp__solved" onClick={() => handleSolved(index, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "X"}</button>
-                <button className="inp__delete" onClick={() => handleDelete(index, "job")}>Delete</button>
-              </div>
+              <Draggable key={index}>
+                <div className="inp__task" >
+                  <li className="inp__li">
+                    {task.task}
+                  </li>
+                  <select className="inp__select-task">
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                  </select>
+                  <button className="inp__solved" onClick={() => handleSolved(index, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "X"}</button>
+                  <button className="inp__delete" onClick={() => handleDelete(index, "job")}>Delete</button>
+                </div>
+              </Draggable>
             ))}
           </ul>
         </div>
@@ -76,18 +79,20 @@ const Input = () => {
           <h2>Private Tasks</h2>
           <ul>
             {privateTasks.map((task, index) => (
-              <div className="inp__task" key={index}>
-                <li className="inp__li">
-                  {task.task}
-                </li>
-                <select className="inp__select-task">
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
-                </select>
-                <button className="inp__solved" onClick={() => handleSolved(index, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "X"}</button>
-                <button className="inp__delete" onClick={() => handleDelete(index, "private")}>Delete</button>
-              </div>
+              <Draggable key={index}>
+                <div className="inp__task" >
+                  <li className="inp__li">
+                    {task.task}
+                  </li>
+                  <select className="inp__select-task">
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                  </select>
+                  <button className="inp__solved" onClick={() => handleSolved(index, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "X"}</button>
+                  <button className="inp__delete" onClick={() => handleDelete(index, "private")}>Delete</button>
+                </div>
+              </Draggable>
             ))}
           </ul>
         </div>
