@@ -6,6 +6,7 @@ import './Input.css';
 const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,6 +43,14 @@ const Input = () => {
     }
   }
 
+  const handleDrag = (e, ui) => {
+    const { x, y } = position;
+    setPosition({
+      x: x,
+      y: y + ui.deltaY
+    });
+  };
+
 
   return (
     <div className="inp__app">
@@ -58,7 +67,7 @@ const Input = () => {
           <h2>Job Tasks</h2>
           <ul>
             {jobTasks.map((task, index) => (
-              <Draggable key={index}>
+              <Draggable key={index} axis="y" onDrag={handleDrag}>
                 <div className="inp__task" >
                   <li className="inp__li">
                     {task.task}
@@ -79,7 +88,7 @@ const Input = () => {
           <h2>Private Tasks</h2>
           <ul>
             {privateTasks.map((task, index) => (
-              <Draggable key={index}>
+              <Draggable key={index} axis="y" onDrag={handleDrag}>
                 <div className="inp__task" >
                   <li className="inp__li">
                     {task.task}
