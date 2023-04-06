@@ -5,8 +5,8 @@ import './Input.css';
 const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
-  const [currentSymbol, setCurrentSymbol] = useState("X")
-  const [color, setColor] = useState("#ff0000");
+  // const [currentSymbol, setCurrentSymbol] = useState("X")
+  // const [color, setColor] = useState("#ff0000");
 
 
 
@@ -15,9 +15,9 @@ const Input = () => {
     const newTask = event.target.elements.task.value;
     const taskType = event.target.elements.type.value;
     if (taskType === "job") {
-      setJobTasks([...jobTasks, newTask]);
+      setJobTasks([...jobTasks, { task: newTask, solved: false, color: "#ff0000" }]);
     } else {
-      setPrivateTasks([...privateTasks, newTask]);
+      setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#ff0000" }]);
     }
     event.target.reset();
   };
@@ -30,15 +30,13 @@ const Input = () => {
     }
   };
 
-  const handleSolved = () => {
-    if (currentSymbol === "X") {
-      setCurrentSymbol("✓");
-      setColor("#00ff00");
+  const handleSolved = (index, taskType) => {
+    if (taskType === "job") {
+      setJobTasks(jobTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#ff0000" : "#00ff00" } : task)));
     } else {
-      setCurrentSymbol("X");
-      setColor("#ff0000");
+      setPrivateTasks(privateTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#ff0000" : "#00ff00" } : task)));
     }
-  }
+  };
 
   return (
     <div className="inp__app">
@@ -57,9 +55,11 @@ const Input = () => {
             {jobTasks.map((task, index) => (
               <div className="inp__task" key={index}>
                 <li className="inp__li">
-                  {task}
+                  {task.task}
                 </li>
-                <button className="inp__solved" onClick={handleSolved} style={{backgroundColor: color}}>{currentSymbol}</button>
+                <button className="inp__solved" onClick={() => handleSolved(index, "job")} style={{ backgroundColor: task.color }}>
+                  {task.solved ? "✓" : "X"}
+                </button>
                 <button className="inp__delete" onClick={() => handleDelete(index, "job")}>Delete</button>
               </div>
             ))}
@@ -71,9 +71,11 @@ const Input = () => {
             {privateTasks.map((task, index) => (
               <div className="inp__task" key={index}>
                 <li className="inp__li">
-                  {task}
+                  {task.task}
                 </li>
-                <button className="inp__solved" onClick={handleSolved}>{currentSymbol}</button>
+                <button className="inp__solved" onClick={() => handleSolved(index, "private")} style={{ backgroundColor: task.color }}>
+                  {task.solved ? "✓" : "X"}
+                </button>
                 <button className="inp__delete" onClick={() => handleDelete(index, "private")}>Delete</button>
               </div>
             ))}
