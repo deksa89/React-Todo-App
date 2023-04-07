@@ -25,11 +25,11 @@ const Input = () => {
     } else {
       setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomColor()}]);
     }
-    event.target.reset();
+    event.target.elements.task.value = "";
   };
 
   const handleDelete = (index, taskType) => {
-    console.log("index: ", index)
+    // console.log("index: ", index)
     if (taskType === "job") {
       setJobTasks(jobTasks.filter((task, i) => i !== index));
     } else {
@@ -50,6 +50,19 @@ const Input = () => {
   }
 
   const bounds = { left: 0, top: -500, right: 0, bottom: 500 };
+
+  const moveItem = (left, right, bottom, index) => {
+    console.log("index: ", index)
+    const bounds = {
+      left,
+      top: index === 0 ? 0 : index * -72,
+      right,
+      bottom
+    };
+    return bounds;
+  };
+
+
   
 
   return (
@@ -67,7 +80,7 @@ const Input = () => {
           <h2>Job Tasks</h2>
           <ul>
             {jobTasks.map((task, index) => (
-              <Draggable key={index} bounds={bounds}>
+              <Draggable key={index} bounds={moveItem(0, 0, 500, index)}>
                 <div className="inp__task" style={{backgroundColor: task.randomizedColor}}>
                   <li className="inp__li">
                     {task.task}
