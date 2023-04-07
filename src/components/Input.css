@@ -1,7 +1,7 @@
 body {
     padding: 20px;
     background-color: blanchedalmond;
-  }
+}
 
 .inp__app {
     display: flex;
@@ -41,9 +41,8 @@ form {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
-  }
+}
   
-
 .inp__button {
     display: inline-block;
     background-color: #2196F3;
@@ -58,7 +57,7 @@ form {
   }
   
 .inp__solved {
-    background-color: #97000f;
+    width: 38px;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -99,13 +98,17 @@ ul {
     border-color: #28a745;
     width: 30rem;
     overflow-wrap: anywhere;
+    cursor: grab;
+}
+
+.inp__task:active {
+    cursor: grabbing;
 }
 
 .inp__li {
     flex-grow: 1;
     padding: 10px;
-  }
-
+}
 
 .inp__delete {
     background-color: #dc3545;
@@ -117,7 +120,7 @@ ul {
     cursor: pointer;
     transition: all 0.3s ease;
     overflow-wrap: initial;
-  }
+}
   
 .inp__delete:hover {
 background-color: #c82333;

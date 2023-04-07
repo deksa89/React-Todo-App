@@ -6,7 +6,12 @@ import './Input.css';
 const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  
+  function randomColor() {
+    return "hsl(" + 360 * Math.random() + ',' +
+    (25 + 70 * Math.random()) + '%,' + 
+    (85 + 10 * Math.random()) + '%)'
+}
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,14 +21,15 @@ const Input = () => {
     // spread operator (...) nam omogucava da kopiramo dio ili cijeli objekt u drugi objekt 
     // u ovom kodu kreiramo objekt s properties: task, solved i color te ga kopiramo u prazni jobTasks i privateTasks objekt koristeci spread operator  
     if (taskType === "job") {
-      setJobTasks([...jobTasks, { task: newTask, solved: false, color: "#ff0000" }]);
+      setJobTasks([...jobTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomColor()}]);
     } else {
-      setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#ff0000" }]);
+      setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomColor()}]);
     }
     event.target.reset();
   };
 
   const handleDelete = (index, taskType) => {
+    console.log("index: ", index)
     if (taskType === "job") {
       setJobTasks(jobTasks.filter((task, i) => i !== index));
     } else {
@@ -37,20 +43,14 @@ const Input = () => {
   // updateani taskovi su postavljeni kao novi state na jobTasks i na privateTasks
   const handleSolved = (index, taskType) => {
     if (taskType === "job") {
-      setJobTasks(jobTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#ff0000" : "#00ff00" } : task)))
+      setJobTasks(jobTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#c5b0b0" : "#00ff00" } : task)))
     } else {
-      setPrivateTasks(privateTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#ff0000" : "#00ff00" } : task)))
+      setPrivateTasks(privateTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#c5b0b0" : "#00ff00" } : task)))
     }
   }
 
-  const handleDrag = (e, ui) => {
-    const { x, y } = position;
-    setPosition({
-      x: x,
-      y: y + ui.deltaY
-    });
-  };
-
+  const bounds = { left: 0, top: -500, right: 0, bottom: 500 };
+  
 
   return (
     <div className="inp__app">
@@ -67,17 +67,17 @@ const Input = () => {
           <h2>Job Tasks</h2>
           <ul>
             {jobTasks.map((task, index) => (
-              <Draggable key={index} axis="y" onDrag={handleDrag}>
-                <div className="inp__task" >
+              <Draggable key={index} bounds={bounds}>
+                <div className="inp__task" style={{backgroundColor: task.randomizedColor}}>
                   <li className="inp__li">
                     {task.task}
                   </li>
-                  <select className="inp__select-task">
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
+                  <select className="inp__select-task" defaultValue="medium">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
                   </select>
-                  <button className="inp__solved" onClick={() => handleSolved(index, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "X"}</button>
+                  <button className="inp__solved" onClick={() => handleSolved(index, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
                   <button className="inp__delete" onClick={() => handleDelete(index, "job")}>Delete</button>
                 </div>
               </Draggable>
@@ -88,17 +88,17 @@ const Input = () => {
           <h2>Private Tasks</h2>
           <ul>
             {privateTasks.map((task, index) => (
-              <Draggable key={index} axis="y" onDrag={handleDrag}>
-                <div className="inp__task" >
+              <Draggable key={index} bounds={bounds}>
+                <div className="inp__task" style={{backgroundColor: task.randomizedColor}}>
                   <li className="inp__li">
                     {task.task}
                   </li>
-                  <select className="inp__select-task">
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
+                  <select className="inp__select-task" defaultValue="medium">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
                   </select>
-                  <button className="inp__solved" onClick={() => handleSolved(index, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "X"}</button>
+                  <button className="inp__solved" onClick={() => handleSolved(index, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
                   <button className="inp__delete" onClick={() => handleDelete(index, "private")}>Delete</button>
                 </div>
               </Draggable>
