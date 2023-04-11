@@ -6,9 +6,18 @@ import './Input.css';
 const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
-  
-  function randomLightColors() {
+
+const randomLightColors = () => {
     return "hsl(" + 360 * Math.random() + ',' + (25 + 70 * Math.random()) + '%,' + (85 + 10 * Math.random()) + '%)'
+}
+
+const generateRandomId = () => {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let id = "";
+  for (let i = 0; i < 8; i++) {
+    id += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return id;
 }
 
 const handleSubmit = (event) => {
@@ -19,18 +28,18 @@ const handleSubmit = (event) => {
   // spread operator (...) nam omogucava da kopiramo dio ili cijeli objekt u drugi objekt 
   // u ovom kodu kreiramo objekt s properties: task, solved i color te ga kopiramo u prazni jobTasks i privateTasks objekt koristeci spread operator  
   if (taskType === "job") {
-    setJobTasks([...jobTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomLightColors()}]);
+    setJobTasks([...jobTasks, { id: generateRandomId(), task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomLightColors()}]);
   } else {
-    setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomLightColors()}]);
+    setPrivateTasks([...privateTasks, { id: generateRandomId(), task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomLightColors()}]);
   }
   event.target.elements.task.value = "";
 };
 
 const handleDelete = (index, taskType) => {
   if (taskType === "job") {
-    setJobTasks(jobTasks.filter((task, i) => i !== index));
+    setJobTasks(jobTasks.filter((task) => task.id !== index));
   } else {
-    setPrivateTasks(privateTasks.filter((task, i) => i !== index));
+    setPrivateTasks(privateTasks.filter((task) => task.id !== index));
   }
 };
  
@@ -40,9 +49,9 @@ const handleDelete = (index, taskType) => {
 // updateani taskovi su postavljeni kao novi state na jobTasks i na privateTasks
 const handleSolved = (index, taskType) => {
   if (taskType === "job") {
-    setJobTasks(jobTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#c5b0b0" : "#00ff00" } : task)))
+    setJobTasks(jobTasks.map((task) => task.id === index ? { ...task, solved: !task.solved, color: task.solved ? "#c5b0b0" : "#00ff00" } : task))
   } else {
-    setPrivateTasks(privateTasks.map((task, i) => (i === index ? { ...task, solved: !task.solved, color: task.solved ? "#c5b0b0" : "#00ff00" } : task)))
+    setPrivateTasks(privateTasks.map((task) => task.id === index ? { ...task, solved: !task.solved, color: task.solved ? "#c5b0b0" : "#00ff00" } : task))
   }
 }
 
@@ -60,9 +69,9 @@ return (
       <div className="inp__job-tasks">
         <h2>Job Tasks</h2>
         <ul>
-          {jobTasks.map((task, index) => (
-            <Draggable key={index}>
-              <div className={`inp__task${index === 0 ? ' first' : ''}`} style={{backgroundColor: task.randomizedColor}}>
+          {jobTasks.map((task) => (
+            <Draggable key={task.id}>
+              <div className={`inp__task${task.id === 0 ? ' first' : ''}`} style={{backgroundColor: task.randomizedColor}}>
                 <li className="inp__li">
                   {task.task}
                 </li>
@@ -71,8 +80,8 @@ return (
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
-                <button className="inp__solved" onClick={() => handleSolved(index, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
-                <button className="inp__delete" onClick={() => handleDelete(index, "job")}>Delete</button>
+                <button className="inp__solved" onClick={() => handleSolved(task.id, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
+                <button className="inp__delete" onClick={() => handleDelete(task.id, "job")}>Delete</button>
               </div>
             </Draggable>
           ))}
@@ -81,8 +90,8 @@ return (
       <div className="inp__private-tasks">
         <h2>Private Tasks</h2>
         <ul>
-          {privateTasks.map((task, index) => (
-            <Draggable key={index}>
+          {privateTasks.map((task) => (
+            <Draggable key={task.id}>
               <div className="inp__task" style={{backgroundColor: task.randomizedColor}}>
                 <li className="inp__li">
                   {task.task}
@@ -92,8 +101,8 @@ return (
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
-                <button className="inp__solved" onClick={() => handleSolved(index, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
-                <button className="inp__delete" onClick={() => handleDelete(index, "private")}>Delete</button>
+                <button className="inp__solved" onClick={() => handleSolved(task.id, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
+                <button className="inp__delete" onClick={() => handleDelete(task.id, "private")}>Delete</button>
               </div>
             </Draggable>
           ))}
