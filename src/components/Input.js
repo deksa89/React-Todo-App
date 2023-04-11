@@ -7,10 +7,8 @@ const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
   
-  function randomColor() {
-    return "hsl(" + 360 * Math.random() + ',' +
-    (25 + 70 * Math.random()) + '%,' + 
-    (85 + 10 * Math.random()) + '%)'
+  function randomLightColors() {
+    return "hsl(" + 360 * Math.random() + ',' + (25 + 70 * Math.random()) + '%,' + (85 + 10 * Math.random()) + '%)'
 }
 
   const handleSubmit = (event) => {
@@ -21,9 +19,9 @@ const Input = () => {
     // spread operator (...) nam omogucava da kopiramo dio ili cijeli objekt u drugi objekt 
     // u ovom kodu kreiramo objekt s properties: task, solved i color te ga kopiramo u prazni jobTasks i privateTasks objekt koristeci spread operator  
     if (taskType === "job") {
-      setJobTasks([...jobTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomColor()}]);
+      setJobTasks([...jobTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomLightColors()}]);
     } else {
-      setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomColor()}]);
+      setPrivateTasks([...privateTasks, { task: newTask, solved: false, color: "#c5b0b0", randomizedColor: randomLightColors()}]);
     }
     event.target.elements.task.value = "";
   };
@@ -80,8 +78,8 @@ const Input = () => {
           <h2>Job Tasks</h2>
           <ul>
             {jobTasks.map((task, index) => (
-              <Draggable key={index} bounds={moveItem(0, 0, 500, index)}>
-                <div className="inp__task" style={{backgroundColor: task.randomizedColor}}>
+              <Draggable key={index} bounds={bounds}>
+                <div className={`inp__task${index === 0 ? ' first' : ''}`} style={{backgroundColor: task.randomizedColor}}>
                   <li className="inp__li">
                     {task.task}
                   </li>
