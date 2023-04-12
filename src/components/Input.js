@@ -115,8 +115,6 @@ const handleTaskNameChange = (event, taskType, taskId) => {
   setEditingTask(null);
 };
 
-console.log("editingTask: ", editingTask)
-
 
 return (
   <div className="inp__app">
