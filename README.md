@@ -25,9 +25,6 @@ This is a simple TODO app that allows you to keep track of tasks you need to com
 Contributions are welcome! 
 If you'd like to contribute to this project, please fork the repository and create a pull request.
 
-## License
-This project is licensed under the MIT License. 
-See LICENSE for more information.
 
 ### Create and delete tasks
 ![ezgif com-gif-maker-create-task](https://user-images.githubusercontent.com/89583742/231457562-c9bd0629-ea5d-4e6c-a00d-154a5a4b0bda.gif)
