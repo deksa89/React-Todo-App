@@ -30,4 +30,5 @@ If you'd like to contribute to this project, please fork the repository and crea
 ![ezgif com-gif-maker-create-task](https://user-images.githubusercontent.com/89583742/231457562-c9bd0629-ea5d-4e6c-a00d-154a5a4b0bda.gif)
 
 ### Drag and drop tasks
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/89583742/231454102-ca2ac9a2-3e2f-45ee-ac58-df808ffa184d.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/89583742/231460239-1a49c86c-2816-40da-bd20-7498911de83f.gif)
+
