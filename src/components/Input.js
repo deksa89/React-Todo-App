@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Draggable from 'react-draggable';
 
 import './Input.css';
 
@@ -70,8 +69,7 @@ return (
         <h2>Job Tasks</h2>
         <ul>
           {jobTasks.map((task) => (
-            <Draggable key={task.id}>
-              <div className={`inp__task${task.id === 0 ? ' first' : ''}`} style={{backgroundColor: task.randomizedColor}}>
+              <div className={`inp__task${task.id === 0 ? ' first' : ''}`} style={{backgroundColor: task.randomizedColor}} key={task.id}>
                 <li className="inp__li">
                   {task.task}
                 </li>
@@ -83,7 +81,6 @@ return (
                 <button className="inp__solved" onClick={() => handleSolved(task.id, "job")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
                 <button className="inp__delete" onClick={() => handleDelete(task.id, "job")}>Delete</button>
               </div>
-            </Draggable>
           ))}
         </ul>
       </div>
@@ -91,8 +88,7 @@ return (
         <h2>Private Tasks</h2>
         <ul>
           {privateTasks.map((task) => (
-            <Draggable key={task.id}>
-              <div className="inp__task" style={{backgroundColor: task.randomizedColor}}>
+              <div className="inp__task" style={{backgroundColor: task.randomizedColor}} key={task.id}>
                 <li className="inp__li">
                   {task.task}
                 </li>
@@ -104,7 +100,6 @@ return (
                 <button className="inp__solved" onClick={() => handleSolved(task.id, "private")} style={{backgroundColor: task.color}}>{task.solved ? "✓" : "⏳"}</button>
                 <button className="inp__delete" onClick={() => handleDelete(task.id, "private")}>Delete</button>
               </div>
-            </Draggable>
           ))}
         </ul>
       </div>
