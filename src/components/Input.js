@@ -8,6 +8,8 @@ import './Input.css';
 const Input = () => {
   const [jobTasks, setJobTasks] = useState([]);
   const [privateTasks, setPrivateTasks] = useState([]);
+  const [editingTask, setEditingTask] = useState(null);
+
 
 // const randomLightColors = () => {
 //     return "hsl(" + 360 * Math.random() + ',' + (25 + 70 * Math.random()) + '%,' + (85 + 10 * Math.random()) + '%)'
@@ -87,6 +89,34 @@ const handleOnDragEnd = (result) => {
   setPrivateTasks([...privateTasks]);
 };
 
+const handleTaskNameChange = (event, taskType, taskId) => {
+  event.preventDefault();
+
+  // novo ime koje ce zamjeniti staro ime nakon sto zavrsimo s uređivanjem
+  const newTaskName = event.target.value;
+
+  // map funkcijom kreiramo provjeravamo da li je task.id jednak taskId parametru, 
+  // ako je onda funkcija kreira novi objekt s update-anim property-ima koristeci spread operator, u suprotnom vraca ne promjenjeni objekt
+  if (taskType === "job") {
+    setJobTasks(
+      jobTasks.map((task) =>
+        task.id === taskId ? { ...task, task: newTaskName } : task
+      )
+    );
+  } else {
+    setPrivateTasks(
+      privateTasks.map((task) =>
+        task.id === taskId ? { ...task, task: newTaskName } : task
+      )
+    );
+  }
+
+  // završili smo s uređivanjem imena zadatka i aplikacija više ne bi trebala biti u "načinu uređivanja" za taj zadatak
+  setEditingTask(null);
+};
+
+console.log("editingTask: ", editingTask)
+
 
 return (
   <div className="inp__app">
@@ -108,10 +138,14 @@ return (
                 {jobTasks.map((task, index) => (
                   <Draggable key={task.id} draggableId={task.id} index={index}>
                     {(provided) => (
-                      <div className="inp__task-job" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <li className="inp__li">
-                          {task.task}
-                        </li>
+                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="inp__task-job" onDoubleClick={() => setEditingTask(task.id)}>
+                        {editingTask === task.id ? (
+                          <input type="text" defaultValue={task.task} onBlur={(event) => handleTaskNameChange(event, "job", task.id)}/>
+                          ) : (
+                          <li className="inp__li">
+                            {task.task}
+                          </li>
+                        )}
                         <select className="inp__select-task" defaultValue="medium" onChange={handleSelectColor} >
                           <option className="inp__option-high" value="high">High</option>
                           <option className="inp__option-medium" value="medium">Medium</option>
@@ -136,10 +170,14 @@ return (
                 {privateTasks.map((task, index) => (
                   <Draggable key={task.id} draggableId={task.id} index={index}>
                     {(provided) => (
-                      <div className="inp__task-private" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <li className="inp__li">
-                          {task.task}
-                        </li>
+                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="inp__task-private" onDoubleClick={() => setEditingTask(task.id)}>
+                        {editingTask === task.id ? (
+                          <input type="text" defaultValue={task.task} onBlur={(event) => handleTaskNameChange(event, "private", task.id)}/>
+                          ) : (
+                          <li className="inp__li">
+                            {task.task}
+                          </li>
+                        )}
                         <select className="inp__select-task" defaultValue="medium" onChange={handleSelectColor}>
                           <option className="inp__option-high" value="high">High</option>
                           <option className="inp__option-medium" value="medium">Medium</option>
