@@ -85,7 +85,7 @@ ul {
     justify-items: center;
 }
 
-.inp__task {
+.inp__task-job {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -94,8 +94,24 @@ ul {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
-    background-color: #c3e6cb;
-    border-color: #28a745;
+    background-color: #bce6fa;
+    border-color: #40db64;
+    width: 30rem;
+    overflow-wrap: anywhere;
+    cursor: grab;
+}
+
+.inp__task-private {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #bfffce;
+    border-color: #40db64;
     width: 30rem;
     overflow-wrap: anywhere;
     cursor: grab;
@@ -103,6 +119,18 @@ ul {
 
 .inp__task:active {
     cursor: grabbing;
+}
+
+.inp__option-high {
+    color: #c82333;
+}
+
+.inp__option-medium {
+    color: #e4d94a;
+}
+
+.inp__option-low {
+    color: #28a745;
 }
 
 .inp__li {
